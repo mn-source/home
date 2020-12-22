@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Home.Base", "Home.Base\Home.Base.csproj", "{F4E7D822-A67C-4D68-B360-E75A2011C8DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.Api", "Home.Api\Home.Api.csproj", "{DCEDCF69-9730-419D-8E1D-1A22573E80BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Home.Api", "Home.Api\Home.Api.csproj", "{DCEDCF69-9730-419D-8E1D-1A22573E80BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.MonitorHost", "Home.MonitorHost\Home.MonitorHost.csproj", "{59548B8C-668A-4DA1-A723-F69E9E428CAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Home.AirSensor", "Home.AirSensor\Home.AirSensor.csproj", "{7A3ED16F-F2D7-4ADA-9DA6-55EAA02B317C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.AirSensor", "Home.AirSensor\Home.AirSensor.csproj", "{404278CA-2959-4C70-94A1-C747A103B423}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.Base", "Home.Base\Home.Base.csproj", "{C8F2DC05-7114-45E7-90FA-5475638A49B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4E7D822-A67C-4D68-B360-E75A2011C8DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4E7D822-A67C-4D68-B360-E75A2011C8DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4E7D822-A67C-4D68-B360-E75A2011C8DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4E7D822-A67C-4D68-B360-E75A2011C8DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCEDCF69-9730-419D-8E1D-1A22573E80BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCEDCF69-9730-419D-8E1D-1A22573E80BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCEDCF69-9730-419D-8E1D-1A22573E80BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCEDCF69-9730-419D-8E1D-1A22573E80BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A3ED16F-F2D7-4ADA-9DA6-55EAA02B317C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A3ED16F-F2D7-4ADA-9DA6-55EAA02B317C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A3ED16F-F2D7-4ADA-9DA6-55EAA02B317C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A3ED16F-F2D7-4ADA-9DA6-55EAA02B317C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59548B8C-668A-4DA1-A723-F69E9E428CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59548B8C-668A-4DA1-A723-F69E9E428CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59548B8C-668A-4DA1-A723-F69E9E428CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59548B8C-668A-4DA1-A723-F69E9E428CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404278CA-2959-4C70-94A1-C747A103B423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404278CA-2959-4C70-94A1-C747A103B423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404278CA-2959-4C70-94A1-C747A103B423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404278CA-2959-4C70-94A1-C747A103B423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
