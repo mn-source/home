@@ -12,32 +12,13 @@ namespace Home.Api.Controllers
     [Route("[controller]")]
     [ApiController]
     public class AirSensorController : ControllerBase
-    {
-        [HttpGet("Quality")]
-        public IEnumerable<Quality> GetQualityAll()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 100).Select(index => new Quality
-            {
-                ProbeDate = DateTime.Now.AddHours(-index),
-                Sensor = new SensorEntity
-                {
-                    SensorId = rng.Next(1, 3),
-                    SensorName = "Quality Sensor"
-                },
-                Pm1 = rng.Next(0, 55),
-                Pm2_5 = rng.Next(0, 55),
-                Pm10 = rng.Next(0, 55),
-                CAQI = rng.Next(0, 200)
-            })
-            .ToArray();
-        }
+    { 
 
-        [HttpGet("Enviroment")]
-        public IEnumerable<Enviroment> GetEnviromentAll()
+        [HttpGet("Probe")]
+        public IEnumerable<ProbeEntity> GetEnviromentAll()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 100).Select(index => new Enviroment
+            return Enumerable.Range(1, 100).Select(index => new ProbeEntity
             {
                 ProbeDate = DateTime.Now.AddHours(-index),
                 Sensor = new SensorEntity
@@ -46,7 +27,11 @@ namespace Home.Api.Controllers
                     SensorName = "Enviroment Sensor"
                 },
                 TemperatureCelcius = rng.Next(-20, 45),
-                HumidityPercent = rng.Next(20, 60)
+                HumidityPercent = rng.Next(20, 60),
+                Pm1 = rng.Next(0, 55),
+                Pm2_5 = rng.Next(0, 55),
+                Pm10 = rng.Next(0, 55),
+                CAQI = rng.Next(0, 200)
             })
             .ToArray();
 
