@@ -19,12 +19,16 @@ namespace Home.AirSensor.Probe.Service
 
         private IClientService GetClient(SensorClient client)
         {
-            switch(client)
+            switch (client)
             {
                 case SensorClient.Supla:
                     return new SuplaClientService();
+                case SensorClient.Blebox:
+                    break;
+                default:
+                    break;
             }
-            
+
             throw new NotImplementedException();
         }
     }

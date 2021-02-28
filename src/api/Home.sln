@@ -9,7 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.MonitorHost", "Home.Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.AirSensor", "Home.AirSensor\Home.AirSensor.csproj", "{404278CA-2959-4C70-94A1-C747A103B423}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.Base", "Home.Base\Home.Base.csproj", "{C8F2DC05-7114-45E7-90FA-5475638A49B5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{A0202990-86AA-499D-89AB-77B9F7723D36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Home.Base", "Base\Home.Base\Home.Base.csproj", "{A58E2A82-333A-47B2-9DAF-FCF6C68B072B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Home.Service", "Base\Home.Service\Home.Service.csproj", "{70D08893-2A18-49BB-A342-C4F2A98C866A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{BC142FE8-74FE-48E4-9296-43EADDB989C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Home.Repository.MongoDb", "Repository\Home.Repository.MongoDb\Home.Repository.MongoDb.csproj", "{77C2E8F0-E4D2-4D57-B209-87F41C860814}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,13 +37,26 @@ Global
 		{404278CA-2959-4C70-94A1-C747A103B423}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{404278CA-2959-4C70-94A1-C747A103B423}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{404278CA-2959-4C70-94A1-C747A103B423}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8F2DC05-7114-45E7-90FA-5475638A49B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58E2A82-333A-47B2-9DAF-FCF6C68B072B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58E2A82-333A-47B2-9DAF-FCF6C68B072B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58E2A82-333A-47B2-9DAF-FCF6C68B072B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58E2A82-333A-47B2-9DAF-FCF6C68B072B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D08893-2A18-49BB-A342-C4F2A98C866A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D08893-2A18-49BB-A342-C4F2A98C866A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D08893-2A18-49BB-A342-C4F2A98C866A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D08893-2A18-49BB-A342-C4F2A98C866A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C2E8F0-E4D2-4D57-B209-87F41C860814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C2E8F0-E4D2-4D57-B209-87F41C860814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C2E8F0-E4D2-4D57-B209-87F41C860814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C2E8F0-E4D2-4D57-B209-87F41C860814}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A58E2A82-333A-47B2-9DAF-FCF6C68B072B} = {A0202990-86AA-499D-89AB-77B9F7723D36}
+		{70D08893-2A18-49BB-A342-C4F2A98C866A} = {A0202990-86AA-499D-89AB-77B9F7723D36}
+		{77C2E8F0-E4D2-4D57-B209-87F41C860814} = {BC142FE8-74FE-48E4-9296-43EADDB989C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D20CCA0F-D13B-4C7F-89E2-49647BCE490E}
