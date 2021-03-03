@@ -11,7 +11,7 @@ namespace Home.Repository.MongoDb.Extension
     {
         public static void RegisterMongoDbRepository(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            //serviceCollection.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
+            serviceCollection.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
             serviceCollection.AddSingleton<IKeyService<ObjectId>, MongoDbKeyService>();
         }
     }
