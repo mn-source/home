@@ -1,6 +1,8 @@
 ﻿using Home.Client.MonitorHost;
+using Home.Repository.MongoDb.Extension;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Bson;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,12 +21,13 @@ namespace Home.MonitorHost
                 .ConfigureHostConfiguration(configHost =>
                 {
                     configHost.SetBasePath(Directory.GetCurrentDirectory());
-                    configHost.AddJsonFile("hostsettings.json", optional: true);
+                    configHost.AddJsonFile("appsettings.json", optional: false);
                     configHost.AddEnvironmentVariables(prefix: "PREFIX_");
                     configHost.AddCommandLine(args);
-                }).ConfigureServices((_, services) =>
+                }).ConfigureServices((host, services) =>
                 {
-                    MonitorServiceHelper.AddServices<int>(services);
+                    MonitorServiceHelper.AddServices<ObjectId>(services);
+                    services.RegisterMongoDbRepository(host.Configuration);
                 });
 
     }

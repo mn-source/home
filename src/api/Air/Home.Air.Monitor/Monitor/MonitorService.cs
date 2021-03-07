@@ -1,5 +1,6 @@
-﻿using Home.Air.Monitor.Probe;
-using Home.AirSensor.Sensor.Service;
+﻿using Home.Air.Base.Probe.Service;
+using Home.Air.Base.Sensor.Service;
+using Home.Air.Monitor.Probe;
 using System;
 using System.Collections.Generic;
 
@@ -9,13 +10,13 @@ namespace Home.Air.Monitor.Monitor
     {
         private List<MonitorProcessService<TKey>> timers;
         private bool disposedValue;
-        private readonly SensorService sensorService;
-        private readonly ProbeService<TKey> probeService;
+        private readonly ISensorService sensorService;
+        private readonly IProbeService<TKey> probeService;
 
 
         public MonitorService(
-            SensorService sensorService,
-            ProbeService<TKey> probeService)
+            ISensorService sensorService,
+          IProbeService<TKey> probeService)
         {
             this.sensorService = sensorService;
             this.probeService = probeService;

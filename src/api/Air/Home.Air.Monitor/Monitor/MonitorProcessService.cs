@@ -1,5 +1,5 @@
-﻿using Home.Air.Base.Sensor.Entity;
-using Home.Air.Monitor.Probe;
+﻿using Home.Air.Base.Probe.Service;
+using Home.Air.Base.Sensor.Entity;
 using System;
 using System.Timers;
 
@@ -9,9 +9,9 @@ namespace Home.Air.Monitor.Monitor
     {
         private readonly Timer timer;
         private readonly SensorEntity sensorEntity;
-        private readonly ProbeService<TKey> probeService;
+        private readonly IProbeService<TKey> probeService;
 
-        public MonitorProcessService(SensorEntity sensorEntity, ProbeService<TKey> probeService)
+        public MonitorProcessService(SensorEntity sensorEntity, IProbeService<TKey> probeService)
         {
             timer = new Timer();
             timer.Elapsed += Timer_Elapsed;
