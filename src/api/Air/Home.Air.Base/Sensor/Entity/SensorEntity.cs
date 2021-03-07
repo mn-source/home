@@ -1,8 +1,9 @@
-﻿namespace Home.Air.Base.Sensor.Entity
+﻿using Home.Base.Base.Entity;
+
+namespace Home.Air.Base.Sensor.Entity
 {
-    public class SensorEntity
+    public class SensorEntity<TKey> : BaseEntity<TKey>
     {
-        public int SensorId { get; set; }
         public string SensorName { get; set; }
         public SensorType Type { get; set; }
         public SensorClient Client { get; set; }

@@ -19,10 +19,10 @@ namespace Home.Air.Monitor.Probe
             this.probeRepository = probeRepository;
         }
 
-        public async Task RecieveSensorDataAsync(SensorEntity sensorEntity)
+        public async Task RecieveSensorDataAsync(SensorEntity<TKey> sensorEntity)
         {
             var client = GetClient(sensorEntity.Client);
-            var latestData = await probeRepository.GetLatestDataAsync(sensorEntity.SensorId);
+            var latestData = await probeRepository.GetLatestDataAsync(sensorEntity.Id);
             var data = client.GetProbeData(sensorEntity);
 
             if (IsModelChanged(latestData, data))
@@ -42,12 +42,12 @@ namespace Home.Air.Monitor.Probe
             throw new NotImplementedException();
         }
 
-        private ISensorClientService GetClient(SensorClient client)
+        private ISensorClientService<TKey> GetClient(SensorClient client)
         {
             switch (client)
             {
                 case SensorClient.Supla:
-                    return new SuplaClientService();
+                    return new SuplaClientService<TKey>();
                 case SensorClient.Blebox:
                     break;
                 default:

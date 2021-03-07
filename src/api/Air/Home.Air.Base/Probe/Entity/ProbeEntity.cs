@@ -8,7 +8,7 @@ namespace Home.Air.Base.Probe.Entity
     {
         public DateTime ProbeDate { get; set; }
 
-        public SensorEntity Sensor { get; set; }
+        public SensorEntity<TKey> Sensor { get; set; }
 
         public decimal? TemperatureCelcius { get; set; }
 

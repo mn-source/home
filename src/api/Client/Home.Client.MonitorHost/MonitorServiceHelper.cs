@@ -12,7 +12,7 @@ namespace Home.Client.MonitorHost
     {
         public static void AddServices<TKey>(IServiceCollection services)
         {
-            services.AddSingleton<ISensorService, SensorService>();
+            services.AddSingleton<ISensorService<TKey>, SensorService<TKey>>();
             services.AddSingleton<IProbeService<TKey>, ProbeService<TKey>>();            
             services.AddSingleton<MonitorService<TKey>>();
             services.AddHostedService<MonitorHostedService<TKey>>();

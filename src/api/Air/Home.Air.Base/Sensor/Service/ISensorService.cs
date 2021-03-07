@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Home.Air.Base.Sensor.Service
 {
-    public interface ISensorService
+    public interface ISensorService<TKey>
     {
-        List<SensorEntity> GetActiveSensors();
+        List<SensorEntity<TKey>> GetActiveSensors();
     }
 }

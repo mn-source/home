@@ -6,9 +6,9 @@ using System.Net;
 
 namespace Home.Air.Monitor.Client.Supla
 {
-    public class SuplaClientService : ISensorClientService
+    public class SuplaClientService<TKey> : ISensorClientService<TKey>
     {
-        public ProbeModel GetProbeData(SensorEntity sensorEntity)
+        public ProbeModel GetProbeData(SensorEntity<TKey> sensorEntity)
         {
             var url = sensorEntity.SensorApiAdress;
             var client = new WebClient();

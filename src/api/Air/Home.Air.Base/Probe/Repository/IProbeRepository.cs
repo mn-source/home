@@ -6,6 +6,6 @@ namespace Home.Air.Base.Probe.Repository
 {
     public interface IProbeRepository<TKey> : IRepository<ProbeEntity<TKey>, TKey>
     {
-        Task<ProbeEntity<TKey>> GetLatestDataAsync(int sensorId);
+        Task<ProbeEntity<TKey>> GetLatestDataAsync(TKey sensorId);
     }
 }

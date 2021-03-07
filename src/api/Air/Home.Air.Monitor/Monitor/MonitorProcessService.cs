@@ -8,10 +8,10 @@ namespace Home.Air.Monitor.Monitor
     public class MonitorProcessService<TKey> : IDisposable
     {
         private readonly Timer timer;
-        private readonly SensorEntity sensorEntity;
+        private readonly SensorEntity<TKey> sensorEntity;
         private readonly IProbeService<TKey> probeService;
 
-        public MonitorProcessService(SensorEntity sensorEntity, IProbeService<TKey> probeService)
+        public MonitorProcessService(SensorEntity<TKey> sensorEntity, IProbeService<TKey> probeService)
         {
             timer = new Timer();
             timer.Elapsed += Timer_Elapsed;

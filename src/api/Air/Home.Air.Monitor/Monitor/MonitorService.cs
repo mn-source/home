@@ -10,12 +10,12 @@ namespace Home.Air.Monitor.Monitor
     {
         private List<MonitorProcessService<TKey>> timers;
         private bool disposedValue;
-        private readonly ISensorService sensorService;
+        private readonly ISensorService<TKey> sensorService;
         private readonly IProbeService<TKey> probeService;
 
 
         public MonitorService(
-            ISensorService sensorService,
+            ISensorService<TKey> sensorService,
           IProbeService<TKey> probeService)
         {
             this.sensorService = sensorService;
