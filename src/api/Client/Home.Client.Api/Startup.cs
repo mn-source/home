@@ -1,3 +1,5 @@
+using Home.Client.Api.Helper;
+using Home.Repository.MongoDb.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +31,8 @@ namespace Home.Api
         {
 
             services.AddControllers();
+            services.RegisterApplication<ObjectId>(Configuration);
+            services.RegisterMongoDbRepository(Configuration);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Home.Api", Version = "v1" });

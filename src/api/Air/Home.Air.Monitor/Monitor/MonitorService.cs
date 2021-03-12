@@ -1,8 +1,10 @@
 ﻿using Home.Air.Base.Probe.Service;
 using Home.Air.Base.Sensor.Service;
 using Home.Air.Monitor.Probe;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Monitor
 {
@@ -11,30 +13,39 @@ namespace Home.Air.Monitor.Monitor
         private List<MonitorProcessService<TKey>> timers;
         private bool disposedValue;
         private readonly ISensorService<TKey> sensorService;
-        private readonly IProbeService<TKey> probeService;
-
+        private readonly IProbeMonitorService<TKey> probeMonitorService;
+        private readonly ILogger<MonitorService<TKey>> logger;
 
         public MonitorService(
             ISensorService<TKey> sensorService,
-          IProbeService<TKey> probeService)
+            IProbeMonitorService<TKey> probeMonitorService,
+            ILogger<MonitorService<TKey>> logger)
         {
             this.sensorService = sensorService;
-            this.probeService = probeService;
+            this.probeMonitorService = probeMonitorService;
+            this.logger = logger;
         }
-        public void Start()
+        public async Task StartAsync()
         {
+            logger.LogDebug("StartAsync");
             timers = new List<MonitorProcessService<TKey>>();
-            var sensors = sensorService.GetActiveSensors();
+            var sensors = await sensorService.GetActiveSensorsAsync();
 
             foreach (var sensor in sensors)
             {
-                var timer = new MonitorProcessService<TKey>(sensor, probeService);
+                var timer = new MonitorProcessService<TKey>(sensor, probeMonitorService);
                 timer.Start();
                 timers.Add(timer);
             }
         }
 
-        public void Stop()
+        public async Task StopAsync()
+        {
+            logger.LogDebug("StopAsync");
+            await Task.Run(StopTimers);
+        }
+
+        private void StopTimers()
         {
             foreach (var sensor in timers)
             {

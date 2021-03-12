@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Home.Repository.MongoDb.Air
@@ -19,8 +20,13 @@ namespace Home.Repository.MongoDb.Air
         public async Task<ProbeEntity<ObjectId>> GetLatestDataAsync(ObjectId sensorId)
         {
             var sort = Builders<ProbeEntity<ObjectId>>.Sort.Descending(s => s.ProbeDate);
-            var item = Collection.Find(b => b.Sensor.Id == sensorId).Sort(sort);
+            var item = Collection.Find(b => b.SensorId== sensorId).Sort(sort);
             return await item.FirstOrDefaultAsync();
+        }
+
+        public Task<IEnumerable<ProbeEntity<ObjectId>>> GetSensorProbes(ObjectId sensorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

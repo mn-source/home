@@ -3,9 +3,11 @@ using Home.Air.Base.Probe.Entity;
 using Home.Air.Base.Probe.Repository;
 using Home.Air.Base.Probe.Service;
 using Home.Air.Base.Sensor.Entity;
+using Home.Air.Monitor.Client.Blebox;
 using Home.Air.Monitor.Client.Supla;
 using Home.Service.Base;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Probe
@@ -14,47 +16,21 @@ namespace Home.Air.Monitor.Probe
     {
         private readonly IProbeRepository<TKey> probeRepository;
 
-        public ProbeService(IProbeRepository<TKey> probeRepository) : base(probeRepository)
+        public ProbeService(
+            IProbeRepository<TKey> probeRepository) : base(probeRepository)
         {
             this.probeRepository = probeRepository;
         }
 
-        public async Task RecieveSensorDataAsync(SensorEntity<TKey> sensorEntity)
+        public async Task<ProbeEntity<TKey>> GetLatestDataAsync(TKey sensorId)
         {
-            var client = GetClient(sensorEntity.Client);
-            var latestData = await probeRepository.GetLatestDataAsync(sensorEntity.Id);
-            var data = client.GetProbeData(sensorEntity);
-
-            if (IsModelChanged(latestData, data))
-            {
-                var entityModel = GetEntityModel(data);
-                await AddAsync(entityModel);
-            }
+            return await probeRepository.GetLatestDataAsync(sensorId);
         }
 
-        private ProbeEntity<TKey> GetEntityModel(ProbeModel data)
+        public async Task<IEnumerable<ProbeEntity<TKey>>> GetSensorProbes(TKey sensorId)
         {
-            throw new NotImplementedException();
+            return await probeRepository.GetSensorProbes(sensorId);
         }
-
-        private bool IsModelChanged(ProbeEntity<TKey> latestData, ProbeModel data)
-        {
-            throw new NotImplementedException();
-        }
-
-        private ISensorClientService<TKey> GetClient(SensorClient client)
-        {
-            switch (client)
-            {
-                case SensorClient.Supla:
-                    return new SuplaClientService<TKey>();
-                case SensorClient.Blebox:
-                    break;
-                default:
-                    break;
-            }
-
-            throw new NotImplementedException();
-        }
+         
     }
 }

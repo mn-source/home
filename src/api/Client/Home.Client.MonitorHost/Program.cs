@@ -1,7 +1,9 @@
 ﻿using Home.Client.MonitorHost;
 using Home.Repository.MongoDb.Extension;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using System.IO;
 using System.Threading.Tasks;
@@ -28,6 +30,8 @@ namespace Home.MonitorHost
                 {
                     MonitorServiceHelper.AddServices<ObjectId>(services);
                     services.RegisterMongoDbRepository(host.Configuration);
+                    services.AddLogging(configure => configure.AddConsole())
+                    .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
                 });
 
     }

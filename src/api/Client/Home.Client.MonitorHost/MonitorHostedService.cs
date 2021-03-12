@@ -16,12 +16,12 @@ namespace Home.MonitorHost
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            monitorService.Start();
+            await monitorService.StartAsync();
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            monitorService.Stop();
+            await monitorService.StopAsync();
         }
     }
 }

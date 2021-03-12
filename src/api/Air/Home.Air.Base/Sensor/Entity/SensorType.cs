@@ -2,6 +2,7 @@
 {
     public enum SensorType
     {
-        Temperature
+        Temperature,
+        AirQuality
     }
 }

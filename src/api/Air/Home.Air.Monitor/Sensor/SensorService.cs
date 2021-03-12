@@ -1,23 +1,26 @@
 ﻿using Home.Air.Base.Sensor.Entity;
+using Home.Air.Base.Sensor.Repository;
 using Home.Air.Base.Sensor.Service;
+using Home.Service.Base;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Home.AirSensor.Sensor.Service
 {
-    public class SensorService<TKey> : ISensorService<TKey>
+    public class SensorService<TKey> : BaseService<SensorEntity<TKey>, TKey>, ISensorService<TKey>
     {
-        public List<SensorEntity<TKey>> GetActiveSensors()
-        {
-            return new List<SensorEntity<TKey>>
-            {
-                new SensorEntity<TKey>
-                {
-                    SensorName="Supla",
-                    Type=SensorType.Temperature,
-                    SensorApiAdress= "https://svr41.supla.org/direct/506/GMyzkhMDWZVBmYNJ/read"
-                }
+        private readonly ISensorRepository<TKey> sensorRepository;
 
-            };
+        public SensorService(ISensorRepository<TKey> sensorRepository) : base(sensorRepository)
+        {
+            this.sensorRepository = sensorRepository;
+        }
+
+
+        public async Task<List<SensorEntity<TKey>>> GetActiveSensorsAsync()
+        {
+            return await sensorRepository.GetActiveSensorsAsync();
         }
 
     }

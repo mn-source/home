@@ -1,4 +1,5 @@
 ﻿using Home.Air.Base.Probe.Repository;
+using Home.Air.Base.Sensor.Repository;
 using Home.Base.Key.Service;
 using Home.Repository.MongoDb.Air;
 using Home.Repository.MongoDb.Service;
@@ -17,8 +18,7 @@ namespace Home.Repository.MongoDb.Extension
             serviceCollection.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
             serviceCollection.AddSingleton<IKeyService<ObjectId>, MongoDbKeyService>();
             serviceCollection.AddSingleton<IProbeRepository<ObjectId>, MongoProbeRepository>();
-
-            
+            serviceCollection.AddSingleton<ISensorRepository<ObjectId>, MongoSensorRepository>();
         }
     }
 }

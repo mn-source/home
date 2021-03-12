@@ -8,8 +8,4 @@
     <ProjectReference Include="..\..\Base\Home.Base\Home.Base.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Sensor\Repository\" />
-  </ItemGroup>
-
 </Project>

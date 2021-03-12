@@ -9,19 +9,22 @@ namespace Home.Air.Monitor.Monitor
     {
         private readonly Timer timer;
         private readonly SensorEntity<TKey> sensorEntity;
-        private readonly IProbeService<TKey> probeService;
+        private readonly IProbeMonitorService<TKey> probeMonitorService;
 
-        public MonitorProcessService(SensorEntity<TKey> sensorEntity, IProbeService<TKey> probeService)
+        public MonitorProcessService(SensorEntity<TKey> sensorEntity, IProbeMonitorService<TKey>  probeMonitorService)
         {
-            timer = new Timer();
+            timer = new Timer
+            {
+                Interval = 1000
+            };
             timer.Elapsed += Timer_Elapsed;
             this.sensorEntity = sensorEntity;
-            this.probeService = probeService;
+            this.probeMonitorService = probeMonitorService;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            probeService.RecieveSensorDataAsync(sensorEntity).Wait();
+            probeMonitorService.RecieveSensorDataAsync(sensorEntity).Wait();
         }
 
         public void Start()
