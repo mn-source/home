@@ -24,9 +24,10 @@ namespace Home.Repository.MongoDb.Air
             return await item.FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<ProbeEntity<ObjectId>>> GetSensorProbes(ObjectId sensorId)
+        public async Task<IEnumerable<ProbeEntity<ObjectId>>> GetSensorProbesAsync(ObjectId sensorId)
         {
-            throw new NotImplementedException();
+            var item = Collection.Find(b => b.SensorId == sensorId);
+            return await item.ToListAsync();
         }
     }
 }

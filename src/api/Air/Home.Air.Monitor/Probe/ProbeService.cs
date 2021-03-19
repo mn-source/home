@@ -29,7 +29,7 @@ namespace Home.Air.Monitor.Probe
 
         public async Task<IEnumerable<ProbeEntity<TKey>>> GetSensorProbes(TKey sensorId)
         {
-            return await probeRepository.GetSensorProbes(sensorId);
+            return await probeRepository.GetSensorProbesAsync(sensorId);
         }
          
     }
