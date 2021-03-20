@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SensorsRootComponent } from './components/sensors-root/sensors-root.component';
+import { SensorsEditComponent } from './components/sensors-edit/sensors-edit.component';
+import { SensorsListComponent } from './components/sensors-list/sensors-list.component';
 
 
 const routes: Routes = [
   {
-    path: '',
-    component: SensorsRootComponent
-  }
+    path: 'edit',
+    component: SensorsEditComponent
+  },
+  {
+    path: 'list',
+    component: SensorsListComponent
+  },
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
 ];
 
 @NgModule({
