@@ -10,9 +10,9 @@ export enum SensorType {
 
 export interface SensorModel {
   idString: string;
-  sensorNam: string;
+  sensorName: string;
   type: SensorType;
   client: SensorClient;
-  sensorApiAdress: string;
+  sensorApiAddress: string;
   isActive: boolean;
 }

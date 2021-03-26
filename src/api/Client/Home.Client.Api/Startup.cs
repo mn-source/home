@@ -19,6 +19,7 @@ namespace Home.Api
 {
     public class Startup
     {
+        private readonly string HomeOrigins = "_homeSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,7 +30,14 @@ namespace Home.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: HomeOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200");
+                                  });
+            });
             services.AddControllers();
             services.RegisterApplication<ObjectId>(Configuration);
             services.RegisterMongoDbRepository(Configuration);
@@ -51,6 +59,7 @@ namespace Home.Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors(HomeOrigins);
             app.UseRouting();
 
             app.UseAuthorization();
