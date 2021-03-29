@@ -2,60 +2,20 @@
   <button (click)="loadSensors()">Load</button>
 </div>
 <div class="table-container">
-  <table mat-table [dataSource]="sensors" class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="sensorName">
-      <th mat-header-cell *matHeaderCellDef>Sensor Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.sensorName}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Type</th>
-      <td mat-cell *matCellDef="let element"> {{SensorType[element.type]}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="client">
-      <th mat-header-cell *matHeaderCellDef>Client</th>
-      <td mat-cell *matCellDef="let element"> {{SensorClient[element.client]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="sensorApiAddress">
-      <th mat-header-cell *matHeaderCellDef>Sensor Api Address</th>
-      <td mat-cell *matCellDef="let element"> {{element.sensorApiAddress}} </td>
-    </ng-container>
-    <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef>Is Active</th>
-      <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
-    </ng-container>
-    <ng-container matColumnDef="editCommand">
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" aria-label="Edit" (click)="editSensor(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="removeCommand">
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="warn" aria-label="Delete">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-
-
-
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
+  <kendo-grid [kendoGridBinding]="sensors" [sortable]="true" [groupable]="false" [filterable]="false">
+    <kendo-grid-column field="sensorName" title="Sensor Name"></kendo-grid-column>
+    <kendo-grid-column field="type" title="Type"></kendo-grid-column>
+    <kendo-grid-column field="client" title="Client"></kendo-grid-column>
+    <kendo-grid-column [width]="80">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <button kendoButton (click)="editSensor(dataItem)"><span class="k-icon k-i-edit"></span></button>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column [width]="80">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <button kendoButton (click)="deleteSensor(dataItem)"><span class="k-icon k-i-delete"></span></button>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
 
 </div>

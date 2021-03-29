@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RootComponent } from './components/root/root.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -18,7 +24,10 @@ import { CommonModule } from '@angular/common';
     HomeRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ButtonsModule,
+    DialogsModule,
+    GridModule,
+    IconsModule
   ],
   providers: [],
   bootstrap: [RootComponent]

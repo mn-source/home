@@ -5,22 +5,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { SensorsRoutingModule } from './sensors.routing.module';
 import { SensorsEditComponent } from './components/sensors-edit/sensors-edit.component';
 import { SensorsListComponent } from './components/sensors-list/sensors-list.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { IconsModule } from '@progress/kendo-angular-icons';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 @NgModule({
   imports: [
     CommonModule,
     SensorsRoutingModule,
     HttpClientModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule
+    ReactiveFormsModule,
+    GridModule,
+    IconsModule,
+    ButtonsModule,
   ],
   declarations: [SensorsRootComponent, SensorsListComponent, SensorsEditComponent],
 })

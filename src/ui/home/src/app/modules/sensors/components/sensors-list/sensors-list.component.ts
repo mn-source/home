@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SensorClient, SensorModel, SensorType } from '../../models/sensor.model';
 import { SensorsDataService } from '../../services/data/sensors-data.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
 import { SensorsEditComponent } from '../sensors-edit/sensors-edit.component';
 
 @Component({
@@ -26,9 +24,7 @@ export class SensorsListComponent implements OnInit {
   ];
 
   constructor(
-    private snackBar: MatSnackBar,
     private sensorsDataService: SensorsDataService,
-    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -36,23 +32,19 @@ export class SensorsListComponent implements OnInit {
   }
 
   loadSensors(): void {
-    this.sensorsDataService.getAllSensors().subscribe(b => this.sensors = b, e => this.reportError(e.message));
+    this.sensorsDataService.getAllSensors().subscribe(b => this.sensors = b);
 
 
   }
 
-  private reportError(message: string): void {
-    this.snackBar.open(message, 'Close', {
-      duration: 15000
-    });
-  }
 
   editSensor(sensor: SensorModel): void {
-    const dialogRef = this.dialog.open(SensorsEditComponent, { data: sensor });
+    console.log('sensor edit', sensor);
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+
+  deleteSensor(sensor: SensorModel): void {
+    console.log('sensor delete', sensor);
   }
 
 }
