@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SensorsRootComponent } from './components/sensors-root/sensors-root.component';
-import { HttpClientModule } from '@angular/common/http';
-import { SensorsRoutingModule } from './sensors.routing.module';
-import { SensorsEditComponent } from './components/sensors-edit/sensors-edit.component';
+import { SensorRootComponent } from './components/sensor-root/sensor-root.component';
+import { SensorRoutingModule } from './sensors-routing.module';
 import { SensorsListComponent } from './components/sensors-list/sensors-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { GridModule } from '@progress/kendo-angular-grid';
-import { IconsModule } from '@progress/kendo-angular-icons';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
-    SensorsRoutingModule,
+    SensorRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    GridModule,
-    IconsModule,
-    ButtonsModule,
   ],
-  declarations: [SensorsRootComponent, SensorsListComponent, SensorsEditComponent],
+  declarations: [SensorRootComponent, SensorsListComponent]
 })
 export class SensorsModule { }

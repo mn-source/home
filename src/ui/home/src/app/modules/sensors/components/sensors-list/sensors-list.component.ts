@@ -1,50 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { SensorClient, SensorModel, SensorType } from '../../models/sensor.model';
-import { SensorsDataService } from '../../services/data/sensors-data.service';
-import { SensorsEditComponent } from '../sensors-edit/sensors-edit.component';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+import { SensorModel } from '../../models/sensor.model';
+import { SensorsDataService } from '../../services/sensors-data/sensors-data.service';
+import { SensorsListDataSource } from './sensors-list-datasource';
 
 @Component({
   selector: 'home-sensors-list',
   templateUrl: './sensors-list.component.html',
   styleUrls: ['./sensors-list.component.scss']
 })
-export class SensorsListComponent implements OnInit {
-  sensors: SensorModel[] = [];
-  SensorType = SensorType;
-  SensorClient = SensorClient;
+export class SensorsListComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<SensorModel>;
+  dataSource: SensorsListDataSource;
 
-  displayedColumns: string[] = [
-    'sensorName',
-    'type',
-    'client',
-    'sensorApiAddress',
-    'isActive',
-    'editCommand',
-    'removeCommand'
-  ];
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['idString', 'sensorName'];
 
-  constructor(
-    private sensorsDataService: SensorsDataService,
-  ) { }
-
-  ngOnInit(): void {
-    this.loadSensors();
+  constructor(sensorsDataService: SensorsDataService) {
+    this.dataSource = new SensorsListDataSource(sensorsDataService);
   }
 
-  loadSensors(): void {
-    this.sensorsDataService.getAllSensors().subscribe(b => this.sensors = b);
-
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
   }
-
-
-  editSensor(sensor: SensorModel): void {
-    console.log('sensor edit', sensor);
-  }
-
-
-  deleteSensor(sensor: SensorModel): void {
-    console.log('sensor delete', sensor);
-  }
-
 }
