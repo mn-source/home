@@ -35,6 +35,16 @@ namespace Home.Service.Base
             return await repository.GetAllAsync().ConfigureAwait(false);
         }
 
+        public virtual async Task<IEnumerable<T>> GetAllAsync(int page, int pagesize)
+        {
+            return await repository.GetAllPagedAsync(page, pagesize).ConfigureAwait(false);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync(string sortActive, string direction, int page, int pagesize)
+        {
+            return await repository.GetAllPagedSortedAsync(page, pagesize, sortActive, direction).ConfigureAwait(false);
+        }
+
         public virtual async Task<T> GetAsync(TKey id)
         {
             return await repository.GetAsync(id).ConfigureAwait(false);

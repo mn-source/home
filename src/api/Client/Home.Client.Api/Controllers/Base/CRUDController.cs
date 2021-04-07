@@ -62,11 +62,19 @@ namespace Home.Client.Api.Controllers.Base
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<T>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<T>>> GetAllAsync(string sortActive, string direction, int page, int pagesize)
         {
             try
             {
-                var data = await service.GetAllAsync();
+                var data = default(IEnumerable<T>);
+                if (string.IsNullOrEmpty(sortActive))
+                {
+                    data = await service.GetAllAsync(page, pagesize);
+                }
+                else
+                {
+                    data = await service.GetAllAsync(sortActive, direction, page, pagesize);
+                }
                 var responseData = data.Select(b =>
                 {
                     b.IdString = keyService.GetKeyString(b.Id);

@@ -57,5 +57,25 @@ namespace Home.Repository.MongoDb.Base
             await Collection.ReplaceOneAsync(b => b.Id == id, value).ConfigureAwait(false);
             return await GetAsync(id).ConfigureAwait(false);
         }
+
+        public async Task<IEnumerable<T>> GetAllPagedAsync(int page, int pagesize)
+        {
+            var filter = Builders<T>.Filter.Empty;
+            var sort = Builders<T>.Sort.Ascending("time");
+            return await Collection.FindAsync(filter, new FindOptions<BsonDocument, BsonDocument>()
+            {
+                Sort = sort
+            }); 
+        }
+
+        public async Task<IEnumerable<T>> GetAllPagedSortedAsync(int page, int pagesize, string sortActive, string direction)
+        {
+            var filter = Builders<BsonDocument>.Filter.Empty;
+            var sort = Builders<T>.Sort.Ascending("time");
+            return await Collection.FindAsync(filter, new FindOptions<BsonDocument, T>()
+            {
+                Sort = sort
+            });
+        }
     }
 }

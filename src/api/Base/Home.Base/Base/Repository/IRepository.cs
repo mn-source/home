@@ -15,5 +15,7 @@ namespace Home.Base.Base.Repository
         Task AddAsync(T value);
         Task<T> UpdateAsync(TKey id, T value);
         Task DelateAsync(TKey id);
+        Task<IEnumerable<T>> GetAllPagedAsync(int page, int pagesize);
+        Task<IEnumerable<T>> GetAllPagedSortedAsync(int page, int pagesize, string sortActive, string direction);
     }
 }

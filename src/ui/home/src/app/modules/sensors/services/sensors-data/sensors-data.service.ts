@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SensorModel } from '../../models/sensor.model';
@@ -10,8 +12,11 @@ import { SensorModel } from '../../models/sensor.model';
 export class SensorsDataService {
   constructor(private httpClient: HttpClient) { }
 
-  getAllSensors(): Observable<SensorModel[]> {
-    const result = this.httpClient.get('https://localhost:5001/air/sensor/all');
+
+  getAllSensors(paginator: MatPaginator, sort: MatSort): Observable<SensorModel[]> {
+    const result =
+      this.httpClient
+        .get(`https://localhost:5001/air/sensor/all?sort=${sort.active}&direction=${sort.direction}&page=${paginator.pageIndex}&pagesize=${paginator.pageSize}`);
     return result.pipe(map((response: any) => {
       return response.map((element: any) => {
         return {

@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { SensorModel } from '../../models/sensor.model';
 import { SensorsDataService } from '../../services/sensors-data/sensors-data.service';
-import { SensorsListDataSource } from './sensors-list-datasource';
+import { SensorsListDataSource } from './sensors-list.datasource';
 
 @Component({
   selector: 'home-sensors-list',
