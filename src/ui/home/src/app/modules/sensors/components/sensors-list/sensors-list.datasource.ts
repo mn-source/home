@@ -29,7 +29,7 @@ export class SensorsListDataSource extends DataSource<SensorModel> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
-      return this.sensorsDataService.getAllSensors(this.paginator, this.sort);
+      return this.sensorsDataService.getAllTableSensors(this.paginator, this.sort);
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
     }

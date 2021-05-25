@@ -1,0 +1,20 @@
+<div>
+  {{probe?.probeDate| date:'YYYY-MM-dd H:mm'}}
+</div>
+<div *ngIf="probe?.temperatureCelcius">
+  temperature: {{probe?.temperatureCelcius| number: '1.1-1'}} *C
+</div>
+
+<div *ngIf="probe?.humidityPercent">
+  humidity: {{probe?.humidityPercent| number: '1.1-1'}} %
+</div>
+<div *ngIf="probe?.pm1">
+  pm 1: {{labelAir_1}}
+</div>
+<div *ngIf="probe?.pm2_5">
+  pm 2.5: {{labelAir_2_5}}
+</div>
+
+<div *ngIf="probe?.pm10">
+  pm 10: {{labelAir_10}}
+</div>

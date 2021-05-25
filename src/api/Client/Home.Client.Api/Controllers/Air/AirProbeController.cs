@@ -29,20 +29,21 @@ namespace Home.Client.Api.Controllers.Air
         public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorData(string sensorId)
         {
             var id = keyService.ParseKey(sensorId);
-            var probes = await probeService.GetSensorProbes(id);
-            return probes.Select(b =>
-            {
-                b.IdString = keyService.GetKeyString(b.Id);
-                return b;
-            }).ToList();
+            return await probeService.GetSensorProbes(id);
         }
+
         [HttpGet("sensor/{sensorId}/latest")]
         public async Task<ProbeEntity<ObjectId>> SensorDataLatests(string sensorId)
         {
             var id = keyService.ParseKey(sensorId);
-            var probe = await probeService.GetLatestDataAsync(id);
-            probe.IdString = keyService.GetKeyString(probe.Id);
-            return probe;
+            return await probeService.GetLatestDataAsync(id);
+        }
+
+        [HttpGet("sensor/{sensorId}/aggregate")]
+        public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorDataAggregate(string sensorId, DateTime from, DateTime to, int aggregationMinutes)
+        {
+            var id = keyService.ParseKey(sensorId);
+            return await probeService.GetSensorDataAggregate(id, from, to, aggregationMinutes);
         }
     }
 }

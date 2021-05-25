@@ -7,7 +7,7 @@ namespace Home.Air.Base.Sensor.Entity
         public string SensorName { get; set; }
         public SensorType Type { get; set; }
         public SensorClient Client { get; set; }
-        public string SensorApiAdress { get; set; }
+        public string SensorApiAddress { get; set; }
         public bool IsActive { get; set; }
     }
 }

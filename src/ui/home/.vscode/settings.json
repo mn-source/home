@@ -2,6 +2,9 @@
     "cSpell.words": [
         "Blebox",
         "Sidenav",
-        "Supla"
-    ]
+        "Supla",
+        "caqi",
+        "ngrx"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }

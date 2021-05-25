@@ -20,7 +20,7 @@ namespace Home.Air.Monitor.Client.Supla
         {
             try
             {
-                var url = sensorEntity.SensorApiAdress;
+                var url = sensorEntity.SensorApiAddress;
                 var client = new WebClient();
                 var responseString = client.DownloadString(url);
 

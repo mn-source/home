@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { SensorModel } from '../../models/sensor.model';
+import { timer } from 'rxjs';
+import { SensorClient, SensorModel, SensorType } from '../../models/sensor.model';
 import { SensorsDataService } from '../../services/sensors-data/sensors-data.service';
 import { SensorsListDataSource } from './sensors-list.datasource';
 
@@ -16,9 +18,10 @@ export class SensorsListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<SensorModel>;
   dataSource: SensorsListDataSource;
-
+  SensorType = SensorType;
+  SensorClient = SensorClient;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['idString', 'sensorName'];
+  displayedColumns = ['idString', 'sensorName', 'type', 'client', 'sensorApiAddress', 'isActive'];
 
   constructor(sensorsDataService: SensorsDataService) {
     this.dataSource = new SensorsListDataSource(sensorsDataService);

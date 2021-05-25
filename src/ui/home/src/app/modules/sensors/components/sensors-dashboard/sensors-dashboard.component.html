@@ -1,0 +1,30 @@
+<div>
+  <form [formGroup]="formGroup">
+    <home-sensor-edit formControlName="sensor"></home-sensor-edit>
+    <div>
+      {{formGroup.value|json}}
+      {{formGroup.invalid}}
+    </div>
+  </form>
+</div>
+
+<div>
+
+  <mat-grid-list cols="5" rowHeight="350px">
+    <mat-grid-tile *ngFor="let item of sensors$ | async" >
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{item.sensorName}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <home-probe-latest [probeId]="item?.idString"></home-probe-latest>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+
+</div>

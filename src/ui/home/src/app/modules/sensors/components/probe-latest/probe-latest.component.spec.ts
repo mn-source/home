@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProbesRootComponent } from './probes-root.component';
+import { ProbeLatestComponent } from './probe-latest.component';
 
-describe('ProbesRootComponent', () => {
-  let component: ProbesRootComponent;
-  let fixture: ComponentFixture<ProbesRootComponent>;
+describe('ProbeLatestComponent', () => {
+  let component: ProbeLatestComponent;
+  let fixture: ComponentFixture<ProbeLatestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProbesRootComponent ]
+      declarations: [ ProbeLatestComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProbesRootComponent);
+    fixture = TestBed.createComponent(ProbeLatestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
