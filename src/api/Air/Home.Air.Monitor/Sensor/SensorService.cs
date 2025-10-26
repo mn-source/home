@@ -3,10 +3,9 @@ using Home.Air.Base.Sensor.Repository;
 using Home.Air.Base.Sensor.Service;
 using Home.Service.Base;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Home.AirSensor.Sensor.Service
+namespace Home.Air.Monitor.Sensor
 {
     public class SensorService<TKey> : BaseService<SensorEntity<TKey>, TKey>, ISensorService<TKey>
     {

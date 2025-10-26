@@ -1,5 +1,4 @@
-﻿using Home.Client.MonitorHost;
-using Home.Repository.MongoDb.Extension;
+﻿using Home.Repository.MongoDb.Extension;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +7,7 @@ using MongoDB.Bson;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Home.MonitorHost
+namespace Home.Client.MonitorHost
 {
     class Program
     {

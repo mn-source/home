@@ -1,5 +1,4 @@
-﻿using Home.Air.Base.Sensor.Entity;
-using Home.Base.Base.Entity;
+﻿using Home.Base.Base.Entity;
 using System;
 
 namespace Home.Air.Base.Probe.Entity

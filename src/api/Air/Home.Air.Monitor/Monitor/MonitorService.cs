@@ -1,6 +1,5 @@
 ﻿using Home.Air.Base.Probe.Service;
 using Home.Air.Base.Sensor.Service;
-using Home.Air.Monitor.Probe;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

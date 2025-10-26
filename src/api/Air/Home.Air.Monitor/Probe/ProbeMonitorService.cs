@@ -5,9 +5,6 @@ using Home.Air.Base.Sensor.Entity;
 using Home.Air.Monitor.Client.Blebox;
 using Home.Air.Monitor.Client.Supla;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Probe

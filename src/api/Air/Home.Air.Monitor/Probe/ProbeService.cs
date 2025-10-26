@@ -1,10 +1,6 @@
-﻿using Home.Air.Base.Client;
-using Home.Air.Base.Probe.Entity;
+﻿using Home.Air.Base.Probe.Entity;
 using Home.Air.Base.Probe.Repository;
 using Home.Air.Base.Probe.Service;
-using Home.Air.Base.Sensor.Entity;
-using Home.Air.Monitor.Client.Blebox;
-using Home.Air.Monitor.Client.Supla;
 using Home.Service.Base;
 using System;
 using System.Collections.Generic;
@@ -27,10 +23,15 @@ namespace Home.Air.Monitor.Probe
             return await probeRepository.GetLatestDataAsync(sensorId);
         }
 
+        public Task<IEnumerable<ProbeEntity<TKey>>> GetSensorDataAggregate(TKey sensorId, DateTime from, DateTime to, int aggregationMinutes)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<ProbeEntity<TKey>>> GetSensorProbes(TKey sensorId)
         {
             return await probeRepository.GetSensorProbesAsync(sensorId);
         }
-         
+
     }
 }

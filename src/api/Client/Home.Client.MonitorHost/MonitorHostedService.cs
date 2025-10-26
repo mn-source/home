@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Home.MonitorHost
+namespace Home.Client.MonitorHost
 {
     public class MonitorHostedService<TKey> : IHostedService
     {

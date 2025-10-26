@@ -4,8 +4,7 @@ using Home.Air.Monitor.Client.Blebox;
 using Home.Air.Monitor.Client.Supla;
 using Home.Air.Monitor.Monitor;
 using Home.Air.Monitor.Probe;
-using Home.AirSensor.Sensor.Service;
-using Home.MonitorHost;
+using Home.Air.Monitor.Sensor;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Home.Client.MonitorHost

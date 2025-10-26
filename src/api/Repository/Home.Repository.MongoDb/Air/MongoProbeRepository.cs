@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Repository.MongoDb.Air
+namespace Home.Client.Client.Repository.MongoDb.Air
 {
     public class MongoProbeRepository : MongoDbRepository<ProbeEntity<ObjectId>>, IProbeRepository<ObjectId>
     {
@@ -22,6 +22,11 @@ namespace Home.Repository.MongoDb.Air
             var sort = Builders<ProbeEntity<ObjectId>>.Sort.Descending(s => s.ProbeDate);
             var item = Collection.Find(b => b.SensorId== sensorId).Sort(sort);
             return await item.FirstOrDefaultAsync();
+        }
+
+        public Task<IEnumerable<ProbeEntity<ObjectId>>> GetSensorDataAggregate(ObjectId sensorId, DateTime from, DateTime to, int aggregationMinutes)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ProbeEntity<ObjectId>>> GetSensorProbesAsync(ObjectId sensorId)

@@ -1,18 +1,11 @@
-﻿
-using Home.Air.Base.Probe.Entity;
-using Home.Air.Base.Sensor.Entity;
+﻿using Home.Air.Base.Sensor.Entity;
 using Home.Air.Base.Sensor.Service;
-using Home.AirSensor.Sensor.Service;
 using Home.Base.Key.Service;
 using Home.Client.Api.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Home.Api.Controllers
+namespace Home.Client.Api.Controllers.Air
 {
     [Route("air/sensor")]
     [ApiController]
