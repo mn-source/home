@@ -8,15 +8,10 @@ using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Probe
 {
-    public class ProbeService<TKey> : BaseService<ProbeEntity<TKey>, TKey>, IProbeService<TKey>
+    public class ProbeService<TKey>(
+        IProbeRepository<TKey> probeRepository) : BaseService<ProbeEntity<TKey>, TKey>(probeRepository), IProbeService<TKey>
     {
-        private readonly IProbeRepository<TKey> probeRepository;
-
-        public ProbeService(
-            IProbeRepository<TKey> probeRepository) : base(probeRepository)
-        {
-            this.probeRepository = probeRepository;
-        }
+        private readonly IProbeRepository<TKey> probeRepository = probeRepository;
 
         public async Task<ProbeEntity<TKey>> GetLatestDataAsync(TKey sensorId)
         {

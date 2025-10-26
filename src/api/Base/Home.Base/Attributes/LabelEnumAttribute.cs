@@ -7,13 +7,8 @@ using System;
 namespace Home.Base.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public sealed class LabelEnumAttribute : Attribute
+    public sealed class LabelEnumAttribute(string label) : Attribute
     {
-        public string Label { get; }
-        public LabelEnumAttribute(string label)
-        {
-            Label = label;
-        }
-
+        public string Label { get; } = label;
     }
 }

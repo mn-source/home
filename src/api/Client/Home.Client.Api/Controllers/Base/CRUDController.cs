@@ -10,16 +10,10 @@ using System.Threading.Tasks;
 namespace Home.Client.Api.Controllers.Base
 {
     [Controller]
-    public abstract class CRUDController<T, TKey> : BaseController where T : BaseEntity<TKey>
+    public abstract class CRUDController<T, TKey>(IService<T, TKey> service, IKeyService<TKey> keyService) : BaseController where T : BaseEntity<TKey>
     {
-        private readonly IService<T, TKey> service;
-        private readonly IKeyService<TKey> keyService;
-
-        public CRUDController(IService<T, TKey> service, IKeyService<TKey> keyService)
-        {
-            this.service = service;
-            this.keyService = keyService;
-        }
+        private readonly IService<T, TKey> service = service;
+        private readonly IKeyService<TKey> keyService = keyService;
 
         [HttpPut]
         public async Task<IActionResult> CreateAsync(T data)

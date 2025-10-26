@@ -10,15 +10,9 @@ using System.Threading.Tasks;
 
 namespace Home.Service.Base
 {
-    public class BaseService<T, TKey> : IService<T, TKey> where T : BaseEntity<TKey>
+    public class BaseService<T, TKey>(IRepository<T, TKey> repository) : IService<T, TKey> where T : BaseEntity<TKey>
     {
-        private readonly IRepository<T, TKey> repository;
-
-        public BaseService(IRepository<T, TKey> repository)
-        {
-            this.repository = repository;
-        }
-
+        private readonly IRepository<T, TKey> repository = repository;
 
         public virtual async Task AddAsync(T value)
         {

@@ -10,12 +10,8 @@ using System.Threading.Tasks;
 
 namespace Home.Repository.MongoDb.Air
 {
-    public class MongoSensorRepository : MongoDbRepository<SensorEntity<ObjectId>>, ISensorRepository<ObjectId>
+    public class MongoSensorRepository(IOptions<MongoDbSettings> options) : MongoDbRepository<SensorEntity<ObjectId>>(options), ISensorRepository<ObjectId>
     {
-        public MongoSensorRepository(IOptions<MongoDbSettings> options) : base(options)
-        {
-        }
-
         public async Task<List<SensorEntity<ObjectId>>> GetActiveSensorsAsync()
         {
             var item = Collection.Find(b => b.IsActive);

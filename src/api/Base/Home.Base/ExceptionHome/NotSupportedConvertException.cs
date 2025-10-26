@@ -3,7 +3,6 @@
 // Proprietary and confidential.
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
-using System.Runtime.Serialization;
 
 namespace Home.Base.ExceptionHome
 {
@@ -24,10 +23,6 @@ namespace Home.Base.ExceptionHome
         }
 
         public NotSupportedConvertException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected NotSupportedConvertException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

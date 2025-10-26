@@ -7,13 +7,8 @@ using System;
 namespace Home.Base.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public sealed class DesiredTypeAttribute : Attribute
+    public sealed class DesiredTypeAttribute(Type typeAttribute) : Attribute
     {
-        public DesiredTypeAttribute(Type typeAttribute)
-        {
-            TypeAttribute = typeAttribute;
-        }
-
-        public Type TypeAttribute { get; }
+        public Type TypeAttribute { get; } = typeAttribute;
     }
 }

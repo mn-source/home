@@ -9,16 +9,10 @@ namespace Home.Client.Api.Controllers.Air
 {
     [Route("air/sensor")]
     [ApiController]
-    public class AirSensorController : CRUDController<SensorEntity<ObjectId>, ObjectId>
+    public class AirSensorController(ISensorService<ObjectId> sensorService, IKeyService<ObjectId> keyService) : CRUDController<SensorEntity<ObjectId>, ObjectId>(sensorService, keyService)
     {
-        private readonly ISensorService<ObjectId> sensorService;
-        private readonly IKeyService<ObjectId> keyService;
-
-        public AirSensorController(ISensorService<ObjectId> sensorService, IKeyService<ObjectId> keyService) : base(sensorService, keyService)
-        {
-            this.sensorService = sensorService;
-            this.keyService = keyService;
-        }
+        private readonly ISensorService<ObjectId> sensorService = sensorService;
+        private readonly IKeyService<ObjectId> keyService = keyService;
         //[HttpGet("all")]
         //public async Task<IEnumerable<SensorEntity<ObjectId>>> GetAllSensros()
         //{

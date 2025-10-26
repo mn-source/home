@@ -17,11 +17,5 @@ namespace Home.Base.ExceptionHome
         public HomeNullException()
         {
         }
-
-
-
-        protected HomeNullException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

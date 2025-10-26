@@ -4,25 +4,23 @@ using Home.Air.Base.Sensor.Entity;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Client.Supla
 {
-    public class SuplaClientService<TKey> : ISensorClientService<TKey>
+    public class SuplaClientService<TKey>(ILogger<SuplaClientService<TKey>> logger) : ISensorClientService<TKey>
     {
-        private readonly ILogger<SuplaClientService<TKey>> logger;
+        private readonly ILogger<SuplaClientService<TKey>> logger = logger;
+        private static readonly HttpClient httpClient = new();
 
-        public SuplaClientService(ILogger<SuplaClientService<TKey>> logger)
-        {
-            this.logger = logger;
-        }
-        public ProbeModel GetProbeData(SensorEntity<TKey> sensorEntity)
+        public async Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity)
+
         {
             try
             {
                 var url = sensorEntity.SensorApiAddress;
-                var client = new WebClient();
-                var responseString = client.DownloadString(url);
+                var responseString = await httpClient.GetStringAsync(url);
 
                 var response = JsonConvert.DeserializeObject<SuplaResponseModel>(responseString);
                 if (response.Connected)

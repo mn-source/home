@@ -7,23 +7,17 @@ using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Monitor
 {
-    public class MonitorService<TKey> : IDisposable
+    public class MonitorService<TKey>(
+        ISensorService<TKey> sensorService,
+        IProbeMonitorService<TKey> probeMonitorService,
+        ILogger<MonitorService<TKey>> logger) : IDisposable
     {
         private List<MonitorProcessService<TKey>> timers;
         private bool disposedValue;
-        private readonly ISensorService<TKey> sensorService;
-        private readonly IProbeMonitorService<TKey> probeMonitorService;
-        private readonly ILogger<MonitorService<TKey>> logger;
+        private readonly ISensorService<TKey> sensorService = sensorService;
+        private readonly IProbeMonitorService<TKey> probeMonitorService = probeMonitorService;
+        private readonly ILogger<MonitorService<TKey>> logger = logger;
 
-        public MonitorService(
-            ISensorService<TKey> sensorService,
-            IProbeMonitorService<TKey> probeMonitorService,
-            ILogger<MonitorService<TKey>> logger)
-        {
-            this.sensorService = sensorService;
-            this.probeMonitorService = probeMonitorService;
-            this.logger = logger;
-        }
         public async Task StartAsync()
         {
             logger.LogDebug("StartAsync");

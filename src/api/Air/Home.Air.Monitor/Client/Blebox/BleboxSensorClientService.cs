@@ -7,24 +7,22 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Client.Blebox
 {
-    public class BleboxSensorClientService<TKey> : ISensorClientService<TKey>
+    public class BleboxSensorClientService<TKey>(ILogger<BleboxSensorClientService<TKey>> logger) : ISensorClientService<TKey>
     {
-        private readonly ILogger<BleboxSensorClientService<TKey>> logger;
+        private readonly ILogger<BleboxSensorClientService<TKey>> logger = logger;
+        private static readonly HttpClient httpClient = new();
 
-        public BleboxSensorClientService(ILogger<BleboxSensorClientService<TKey>> logger)
-        {
-            this.logger = logger;
-        }
-        public ProbeModel GetProbeData(SensorEntity<TKey> sensorEntity)
+        public async Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity)
         {
             try
             {
                 var url = sensorEntity.SensorApiAddress;
-                var client = new WebClient();
-                var responseString = client.DownloadString(url);
+                var responseString = await httpClient.GetStringAsync(url);
 
                 switch (sensorEntity.Type)
                 {

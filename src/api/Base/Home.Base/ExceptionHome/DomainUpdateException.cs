@@ -3,11 +3,9 @@
 // Proprietary and confidential.
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
-using System.Runtime.Serialization;
 
 namespace Home.Base.ExceptionHome
 {
-    [Serializable]
     public class DomainUpdateException : Exception
     {
         public DomainUpdateException()
@@ -19,10 +17,6 @@ namespace Home.Base.ExceptionHome
         }
 
         public DomainUpdateException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected DomainUpdateException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

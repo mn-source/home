@@ -9,27 +9,20 @@ using System.Threading.Tasks;
 
 namespace Home.Air.Monitor.Probe
 {
-    public class ProbeMonitorService<TKey> : IProbeMonitorService<TKey>
+    public class ProbeMonitorService<TKey>(
+        IProbeService<TKey> probeService,
+        SuplaClientService<TKey> suplaClientService,
+        BleboxSensorClientService<TKey> bleboxSensorClientService) : IProbeMonitorService<TKey>
     {
-        private readonly IProbeService<TKey> probeService;
-        private readonly SuplaClientService<TKey> suplaClientService;
-        private readonly BleboxSensorClientService<TKey> bleboxSensorClientService;
-
-        public ProbeMonitorService(
-            IProbeService<TKey> probeService,
-            SuplaClientService<TKey> suplaClientService,
-            BleboxSensorClientService<TKey> bleboxSensorClientService)  
-        {
-            this.probeService = probeService;
-            this.suplaClientService = suplaClientService;
-            this.bleboxSensorClientService = bleboxSensorClientService;
-        }
+        private readonly IProbeService<TKey> probeService = probeService;
+        private readonly SuplaClientService<TKey> suplaClientService = suplaClientService;
+        private readonly BleboxSensorClientService<TKey> bleboxSensorClientService = bleboxSensorClientService;
 
         public async Task RecieveSensorDataAsync(SensorEntity<TKey> sensorEntity)
         {
             var client = GetClient(sensorEntity.Client);
             var latestData = await probeService.GetLatestDataAsync(sensorEntity.Id);
-            var data = client.GetProbeData(sensorEntity);
+            var data = await client.GetProbeDataAsync(sensorEntity);
 
             if (data == null)
             {

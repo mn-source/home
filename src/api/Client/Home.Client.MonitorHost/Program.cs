@@ -1,10 +1,10 @@
-﻿using Home.Repository.MongoDb.Extension;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using System.IO;
+using Home.Repository.MongoDb.Extension;
 using System.Threading.Tasks;
 
 namespace Home.Client.MonitorHost

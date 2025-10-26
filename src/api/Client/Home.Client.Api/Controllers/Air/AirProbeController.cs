@@ -12,17 +12,10 @@ namespace Home.Client.Api.Controllers.Air
 {
     [Route("air/probe")]
     [ApiController]
-    public class AirProbeController : CRUDController<ProbeEntity<ObjectId>, ObjectId>
+    public class AirProbeController(IProbeService<ObjectId> probeService, IKeyService<ObjectId> keyService) : CRUDController<ProbeEntity<ObjectId>, ObjectId>(probeService, keyService)
     {
-        private readonly IProbeService<ObjectId> probeService;
-        private readonly IKeyService<ObjectId> keyService;
-
-        public AirProbeController(IProbeService<ObjectId> probeService, IKeyService<ObjectId> keyService)
-            : base(probeService, keyService)
-        {
-            this.probeService = probeService;
-            this.keyService = keyService;
-        }
+        private readonly IProbeService<ObjectId> probeService = probeService;
+        private readonly IKeyService<ObjectId> keyService = keyService;
 
         [HttpGet("sensor/{sensorId}/all")]
         public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorData(string sensorId)

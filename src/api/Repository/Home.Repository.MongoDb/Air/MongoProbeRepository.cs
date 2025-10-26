@@ -11,12 +11,8 @@ using System.Threading.Tasks;
 
 namespace Home.Client.Client.Repository.MongoDb.Air
 {
-    public class MongoProbeRepository : MongoDbRepository<ProbeEntity<ObjectId>>, IProbeRepository<ObjectId>
+    public class MongoProbeRepository(IOptions<MongoDbSettings> options) : MongoDbRepository<ProbeEntity<ObjectId>>(options), IProbeRepository<ObjectId>
     {
-        public MongoProbeRepository(IOptions<MongoDbSettings> options) : base(options)
-        {
-        }
-
         public async Task<ProbeEntity<ObjectId>> GetLatestDataAsync(ObjectId sensorId)
         {
             var sort = Builders<ProbeEntity<ObjectId>>.Sort.Descending(s => s.ProbeDate);

@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 
 namespace Home.Client.MonitorHost
 {
-    public class MonitorHostedService<TKey> : IHostedService
+    public class MonitorHostedService<TKey>(MonitorService<TKey> monitorService) : IHostedService
     {
-        private readonly MonitorService<TKey> monitorService;
-
-        public MonitorHostedService(MonitorService<TKey> monitorService)
-        {
-            this.monitorService = monitorService;
-        }
+        private readonly MonitorService<TKey> monitorService = monitorService;
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {

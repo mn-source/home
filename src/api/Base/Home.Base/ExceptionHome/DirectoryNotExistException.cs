@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Home.Base.ExceptionHome
 {
@@ -15,10 +14,6 @@ namespace Home.Base.ExceptionHome
         }
 
         public DirectoryNotExistException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected DirectoryNotExistException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

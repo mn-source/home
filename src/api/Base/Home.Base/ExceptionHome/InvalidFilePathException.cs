@@ -17,9 +17,5 @@ namespace Home.Base.ExceptionHome
         public InvalidFilePathException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        protected InvalidFilePathException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }
