@@ -7,38 +7,37 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Home.Air.Monitor.Client.Supla
+namespace Home.Air.Monitor.Client.Supla;
+
+public class SuplaClientService<TKey>(ILogger<SuplaClientService<TKey>> logger) : ISensorClientService<TKey>
 {
-    public class SuplaClientService<TKey>(ILogger<SuplaClientService<TKey>> logger) : ISensorClientService<TKey>
+    private readonly ILogger<SuplaClientService<TKey>> logger = logger;
+    private static readonly HttpClient httpClient = new();
+
+    public async Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity)
+
     {
-        private readonly ILogger<SuplaClientService<TKey>> logger = logger;
-        private static readonly HttpClient httpClient = new();
-
-        public async Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity)
-
+        try
         {
-            try
-            {
-                var url = sensorEntity.SensorApiAddress;
-                var responseString = await httpClient.GetStringAsync(url);
+            var url = sensorEntity.SensorApiAddress;
+            var responseString = await httpClient.GetStringAsync(url);
 
-                var response = JsonConvert.DeserializeObject<SuplaResponseModel>(responseString);
-                if (response.Connected)
-                {
-                    var probe = new ProbeModel
-                    {
-                        ProbeDate = DateTime.Now,
-                        TemperatureCelcius = response.Temperature,
-                        HumidityPercent = response.Humidity
-                    };
-                    return probe;
-                }
-            }
-            catch (Exception ex)
+            var response = JsonConvert.DeserializeObject<SuplaResponseModel>(responseString);
+            if (response.Connected)
             {
-                logger.LogError(ex, "Error during load data.");
+                var probe = new ProbeModel
+                {
+                    ProbeDate = DateTime.Now,
+                    TemperatureCelcius = response.Temperature,
+                    HumidityPercent = response.Humidity
+                };
+                return probe;
             }
-            return null;
         }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error during load data.");
+        }
+        return null;
     }
 }

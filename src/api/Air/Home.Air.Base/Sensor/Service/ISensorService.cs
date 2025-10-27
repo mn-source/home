@@ -3,10 +3,9 @@ using Home.Base.Base.Service;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Air.Base.Sensor.Service
+namespace Home.Air.Base.Sensor.Service;
+
+public interface ISensorService<TKey> : IService<SensorEntity<TKey>, TKey>
 {
-    public interface ISensorService<TKey> : IService<SensorEntity<TKey>, TKey>
-    {
-        Task<List<SensorEntity<TKey>>> GetActiveSensorsAsync();
-    }
+    Task<List<SensorEntity<TKey>>> GetActiveSensorsAsync();
 }

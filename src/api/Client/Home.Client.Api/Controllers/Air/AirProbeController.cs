@@ -8,34 +8,33 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Client.Api.Controllers.Air
+namespace Home.Client.Api.Controllers.Air;
+
+[Route("air/probe")]
+[ApiController]
+public class AirProbeController(IProbeService<ObjectId> probeService, IKeyService<ObjectId> keyService) : CRUDController<ProbeEntity<ObjectId>, ObjectId>(probeService, keyService)
 {
-    [Route("air/probe")]
-    [ApiController]
-    public class AirProbeController(IProbeService<ObjectId> probeService, IKeyService<ObjectId> keyService) : CRUDController<ProbeEntity<ObjectId>, ObjectId>(probeService, keyService)
+    private readonly IProbeService<ObjectId> probeService = probeService;
+    private readonly IKeyService<ObjectId> keyService = keyService;
+
+    [HttpGet("sensor/{sensorId}/all")]
+    public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorData(string sensorId)
     {
-        private readonly IProbeService<ObjectId> probeService = probeService;
-        private readonly IKeyService<ObjectId> keyService = keyService;
+        var id = keyService.ParseKey(sensorId);
+        return await probeService.GetSensorProbes(id);
+    }
 
-        [HttpGet("sensor/{sensorId}/all")]
-        public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorData(string sensorId)
-        {
-            var id = keyService.ParseKey(sensorId);
-            return await probeService.GetSensorProbes(id);
-        }
+    [HttpGet("sensor/{sensorId}/latest")]
+    public async Task<ProbeEntity<ObjectId>> SensorDataLatests(string sensorId)
+    {
+        var id = keyService.ParseKey(sensorId);
+        return await probeService.GetLatestDataAsync(id);
+    }
 
-        [HttpGet("sensor/{sensorId}/latest")]
-        public async Task<ProbeEntity<ObjectId>> SensorDataLatests(string sensorId)
-        {
-            var id = keyService.ParseKey(sensorId);
-            return await probeService.GetLatestDataAsync(id);
-        }
-
-        [HttpGet("sensor/{sensorId}/aggregate")]
-        public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorDataAggregate(string sensorId, DateTime from, DateTime to, int aggregationMinutes)
-        {
-            var id = keyService.ParseKey(sensorId);
-            return await probeService.GetSensorDataAggregate(id, from, to, aggregationMinutes);
-        }
+    [HttpGet("sensor/{sensorId}/aggregate")]
+    public async Task<IEnumerable<ProbeEntity<ObjectId>>> SensorDataAggregate(string sensorId, DateTime from, DateTime to, int aggregationMinutes)
+    {
+        var id = keyService.ParseKey(sensorId);
+        return await probeService.GetSensorDataAggregate(id, from, to, aggregationMinutes);
     }
 }

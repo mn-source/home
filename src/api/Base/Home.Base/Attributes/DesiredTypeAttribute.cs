@@ -4,11 +4,10 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.Attributes
+namespace Home.Base.Attributes;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
+public sealed class DesiredTypeAttribute(Type typeAttribute) : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public sealed class DesiredTypeAttribute(Type typeAttribute) : Attribute
-    {
-        public Type TypeAttribute { get; } = typeAttribute;
-    }
+    public Type TypeAttribute { get; } = typeAttribute;
 }

@@ -5,13 +5,12 @@
 using Home.Repository.MongoDb.Settings;
 using MongoDB.Driver;
 
-namespace Home.Repository.MongoDb.Context
+namespace Home.Repository.MongoDb.Context;
+
+internal static class MongoSorgoClient
 {
-    internal static class MongoSorgoClient
+    public static MongoClient GetClient(MongoDbSettings settings)
     {
-        public static MongoClient GetClient(MongoDbSettings settings)
-        {
-            return new MongoClient(settings.ConnectionsString);
-        }
+        return new MongoClient(settings.ConnectionsString);
     }
 }

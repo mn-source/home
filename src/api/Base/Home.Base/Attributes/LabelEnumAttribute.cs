@@ -4,11 +4,10 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.Attributes
+namespace Home.Base.Attributes;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
+public sealed class LabelEnumAttribute(string label) : Attribute
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public sealed class LabelEnumAttribute(string label) : Attribute
-    {
-        public string Label { get; } = label;
-    }
+    public string Label { get; } = label;
 }

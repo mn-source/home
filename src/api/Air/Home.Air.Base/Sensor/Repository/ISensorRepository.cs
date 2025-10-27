@@ -3,10 +3,9 @@ using Home.Base.Base.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Air.Base.Sensor.Repository
+namespace Home.Air.Base.Sensor.Repository;
+
+public interface ISensorRepository<TKey> : IRepository<SensorEntity<TKey>, TKey>
 {
-    public interface ISensorRepository<TKey> : IRepository<SensorEntity<TKey>, TKey>
-    {
-        Task<List<SensorEntity<TKey>>> GetActiveSensorsAsync();
-    }
+    Task<List<SensorEntity<TKey>>> GetActiveSensorsAsync();
 }

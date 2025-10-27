@@ -4,28 +4,27 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.ExceptionHome
+namespace Home.Base.ExceptionHome;
+
+[Serializable]
+public class WrongTypeConversionException : Exception
 {
-    [Serializable]
-    public class WrongTypeConversionException : Exception
+
+    public WrongTypeConversionException()
     {
+    }
 
-        public WrongTypeConversionException()
-        {
-        }
+    public WrongTypeConversionException(string message) : base(message)
+    {
+    }
 
-        public WrongTypeConversionException(string message) : base(message)
-        {
-        }
+    public WrongTypeConversionException(Type typeFrom, Type typeTo)
+        : base(typeFrom != null && typeTo != null ?
+              $"cannot convert {typeFrom.FullName} to {typeTo.FullName}" : "Conversion error")
+    {
+    }
 
-        public WrongTypeConversionException(Type typeFrom, Type typeTo)
-            : base(typeFrom != null && typeTo != null ?
-                  $"cannot convert {typeFrom.FullName} to {typeTo.FullName}" : "Conversion error")
-        {
-        }
-
-        public WrongTypeConversionException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public WrongTypeConversionException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

@@ -7,19 +7,18 @@ using Home.Air.Monitor.Probe;
 using Home.Air.Monitor.Sensor;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Home.Client.MonitorHost
+namespace Home.Client.MonitorHost;
+
+public static class MonitorServiceHelper
 {
-    public static class MonitorServiceHelper
+    public static void AddServices<TKey>(IServiceCollection services)
     {
-        public static void AddServices<TKey>(IServiceCollection services)
-        {
-            services.AddSingleton<ISensorService<TKey>, SensorService<TKey>>();
-            services.AddSingleton<IProbeMonitorService<TKey>, ProbeMonitorService<TKey>>();
-            services.AddSingleton<IProbeService<TKey>, ProbeService<TKey>>();
-            services.AddSingleton<MonitorService<TKey>>();
-            services.AddSingleton<SuplaClientService<TKey>>();
-            services.AddSingleton<BleboxSensorClientService<TKey>>();
-            services.AddHostedService<MonitorHostedService<TKey>>();
-        }
+        services.AddSingleton<ISensorService<TKey>, SensorService<TKey>>();
+        services.AddSingleton<IProbeMonitorService<TKey>, ProbeMonitorService<TKey>>();
+        services.AddSingleton<IProbeService<TKey>, ProbeService<TKey>>();
+        services.AddSingleton<MonitorService<TKey>>();
+        services.AddSingleton<SuplaClientService<TKey>>();
+        services.AddSingleton<BleboxSensorClientService<TKey>>();
+        services.AddHostedService<MonitorHostedService<TKey>>();
     }
 }

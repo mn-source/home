@@ -4,28 +4,27 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.ExceptionHome
+namespace Home.Base.ExceptionHome;
+
+[Serializable]
+public class UnknownTypeValueException : Exception
 {
-    [Serializable]
-    public class UnknownTypeValueException : Exception
+    public string Label { get; }
+
+    public UnknownTypeValueException()
     {
-        public string Label { get; }
+    }
 
-        public UnknownTypeValueException()
-        {
-        }
+    public UnknownTypeValueException(string message, string label) : base(message)
+    {
+        Label = label;
+    }
 
-        public UnknownTypeValueException(string message, string label) : base(message)
-        {
-            Label = label;
-        }
+    public UnknownTypeValueException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
 
-        public UnknownTypeValueException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        public UnknownTypeValueException(string message) : base(message)
-        {
-        }
+    public UnknownTypeValueException(string message) : base(message)
+    {
     }
 }

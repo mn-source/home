@@ -4,21 +4,20 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.ExceptionHome
+namespace Home.Base.ExceptionHome;
+
+[Serializable]
+public class UnknownLabelValueException : Exception
 {
-    [Serializable]
-    public class UnknownLabelValueException : Exception
+    public UnknownLabelValueException()
     {
-        public UnknownLabelValueException()
-        {
-        }
+    }
 
-        public UnknownLabelValueException(string message) : base(message)
-        {
-        }
+    public UnknownLabelValueException(string message) : base(message)
+    {
+    }
 
-        public UnknownLabelValueException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public UnknownLabelValueException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

@@ -7,129 +7,128 @@ using Home.Air.Monitor.Client.Supla;
 using System;
 using System.Threading.Tasks;
 
-namespace Home.Air.Monitor.Probe
+namespace Home.Air.Monitor.Probe;
+
+public class ProbeMonitorService<TKey>(
+    IProbeService<TKey> probeService,
+    SuplaClientService<TKey> suplaClientService,
+    BleboxSensorClientService<TKey> bleboxSensorClientService) : IProbeMonitorService<TKey>
 {
-    public class ProbeMonitorService<TKey>(
-        IProbeService<TKey> probeService,
-        SuplaClientService<TKey> suplaClientService,
-        BleboxSensorClientService<TKey> bleboxSensorClientService) : IProbeMonitorService<TKey>
+    private readonly IProbeService<TKey> probeService = probeService;
+    private readonly SuplaClientService<TKey> suplaClientService = suplaClientService;
+    private readonly BleboxSensorClientService<TKey> bleboxSensorClientService = bleboxSensorClientService;
+
+    public async Task RecieveSensorDataAsync(SensorEntity<TKey> sensorEntity)
     {
-        private readonly IProbeService<TKey> probeService = probeService;
-        private readonly SuplaClientService<TKey> suplaClientService = suplaClientService;
-        private readonly BleboxSensorClientService<TKey> bleboxSensorClientService = bleboxSensorClientService;
+        var client = GetClient(sensorEntity.Client);
+        var latestData = await probeService.GetLatestDataAsync(sensorEntity.Id);
+        var data = await client.GetProbeDataAsync(sensorEntity);
 
-        public async Task RecieveSensorDataAsync(SensorEntity<TKey> sensorEntity)
+        if (data == null)
         {
-            var client = GetClient(sensorEntity.Client);
-            var latestData = await probeService.GetLatestDataAsync(sensorEntity.Id);
-            var data = await client.GetProbeDataAsync(sensorEntity);
-
-            if (data == null)
-            {
-                return;
-            }
-
-
-            if (IsModelChanged(latestData, data))
-            {
-                var entityModel = GetEntityModel(data, sensorEntity);
-                await probeService.AddAsync(entityModel);
-            }
+            return;
         }
 
-        private static ProbeEntity<TKey> GetEntityModel(ProbeModel data, SensorEntity<TKey> sensorEntity)
+
+        if (IsModelChanged(latestData, data))
         {
-            var probe = new ProbeEntity<TKey>
-            {
-                SensorId = sensorEntity.Id,
-                ProbeDate = DateTime.Now,
-                TemperatureCelcius = data.TemperatureCelcius,
-                Pm1 = data.Pm1,
-                Pm2_5 = data.Pm2_5,
-                Pm10 = data.Pm10,
-                HumidityPercent = data.HumidityPercent
-            };
-            return probe;
+            var entityModel = GetEntityModel(data, sensorEntity);
+            await probeService.AddAsync(entityModel);
         }
+    }
 
-        private static bool IsModelChanged(ProbeEntity<TKey> latestData, ProbeModel data)
+    private static ProbeEntity<TKey> GetEntityModel(ProbeModel data, SensorEntity<TKey> sensorEntity)
+    {
+        var probe = new ProbeEntity<TKey>
         {
-            if (data == null)
-            {
-                return false;
-            }
+            SensorId = sensorEntity.Id,
+            ProbeDate = DateTime.Now,
+            TemperatureCelcius = data.TemperatureCelcius,
+            Pm1 = data.Pm1,
+            Pm2_5 = data.Pm2_5,
+            Pm10 = data.Pm10,
+            HumidityPercent = data.HumidityPercent
+        };
+        return probe;
+    }
 
-            if (latestData == null)
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.CAQI, data.CAQI))
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.HumidityPercent, data.HumidityPercent))
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.Pm1, data.Pm1))
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.Pm2_5, data.Pm2_5))
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.Pm10, data.Pm10))
-            {
-                return true;
-            }
-
-            if (IsValueChanched(latestData.TemperatureCelcius, data.TemperatureCelcius))
-            {
-                return true;
-            }
+    private static bool IsModelChanged(ProbeEntity<TKey> latestData, ProbeModel data)
+    {
+        if (data == null)
+        {
             return false;
         }
 
-
-        private static bool IsValueChanched<T>(T? value1, T? value2) where T : struct
+        if (latestData == null)
         {
-            if (value1 == null && value2 == null)
-            {
-                return false;
-            }
-
-            if (value1 == null || value2 == null)
-            {
-                return true;
-            }
-
-            if (value1.Value.Equals(value2.Value))
-            {
-                return false;
-            }
             return true;
-
         }
 
-        private ISensorClientService<TKey> GetClient(SensorClient client)
+        if (IsValueChanched(latestData.CAQI, data.CAQI))
         {
-            switch (client)
-            {
-                case SensorClient.Supla:
-                    return suplaClientService;
-                case SensorClient.Blebox:
-                    return bleboxSensorClientService;
-                default:
-                    break;
-            }
-
-            throw new NotImplementedException();
+            return true;
         }
+
+        if (IsValueChanched(latestData.HumidityPercent, data.HumidityPercent))
+        {
+            return true;
+        }
+
+        if (IsValueChanched(latestData.Pm1, data.Pm1))
+        {
+            return true;
+        }
+
+        if (IsValueChanched(latestData.Pm2_5, data.Pm2_5))
+        {
+            return true;
+        }
+
+        if (IsValueChanched(latestData.Pm10, data.Pm10))
+        {
+            return true;
+        }
+
+        if (IsValueChanched(latestData.TemperatureCelcius, data.TemperatureCelcius))
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    private static bool IsValueChanched<T>(T? value1, T? value2) where T : struct
+    {
+        if (value1 == null && value2 == null)
+        {
+            return false;
+        }
+
+        if (value1 == null || value2 == null)
+        {
+            return true;
+        }
+
+        if (value1.Value.Equals(value2.Value))
+        {
+            return false;
+        }
+        return true;
+
+    }
+
+    private ISensorClientService<TKey> GetClient(SensorClient client)
+    {
+        switch (client)
+        {
+            case SensorClient.Supla:
+                return suplaClientService;
+            case SensorClient.Blebox:
+                return bleboxSensorClientService;
+            default:
+                break;
+        }
+
+        throw new NotImplementedException();
     }
 }

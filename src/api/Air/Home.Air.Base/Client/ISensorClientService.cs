@@ -2,10 +2,9 @@
 using Home.Air.Base.Sensor.Entity;
 using System.Threading.Tasks;
 
-namespace Home.Air.Base.Client
+namespace Home.Air.Base.Client;
+
+public interface ISensorClientService<TKey>
 {
-    public interface ISensorClientService<TKey>
-    {
-        Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity);
-    }
+    Task<ProbeModel> GetProbeDataAsync(SensorEntity<TKey> sensorEntity);
 }

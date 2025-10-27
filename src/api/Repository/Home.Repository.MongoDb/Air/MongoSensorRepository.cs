@@ -8,14 +8,13 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Repository.MongoDb.Air
+namespace Home.Repository.MongoDb.Air;
+
+public class MongoSensorRepository(IOptions<MongoDbSettings> options) : MongoDbRepository<SensorEntity<ObjectId>>(options), ISensorRepository<ObjectId>
 {
-    public class MongoSensorRepository(IOptions<MongoDbSettings> options) : MongoDbRepository<SensorEntity<ObjectId>>(options), ISensorRepository<ObjectId>
+    public async Task<List<SensorEntity<ObjectId>>> GetActiveSensorsAsync()
     {
-        public async Task<List<SensorEntity<ObjectId>>> GetActiveSensorsAsync()
-        {
-            var item = Collection.Find(b => b.IsActive);
-            return await item.ToListAsync();
-        }
+        var item = Collection.Find(b => b.IsActive);
+        return await item.ToListAsync();
     }
 }

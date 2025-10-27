@@ -4,21 +4,20 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.ExceptionHome
+namespace Home.Base.ExceptionHome;
+
+[Serializable]
+public class FileHashConflictException : Exception
 {
-    [Serializable]
-    public class FileHashConflictException : Exception
+    public FileHashConflictException(string fileHash) : base($"File hash {fileHash} already exist.")
     {
-        public FileHashConflictException(string fileHash) : base($"File hash {fileHash} already exist.")
-        {
-        }
+    }
 
-        public FileHashConflictException()
-        {
-        }
+    public FileHashConflictException()
+    {
+    }
 
-        public FileHashConflictException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public FileHashConflictException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

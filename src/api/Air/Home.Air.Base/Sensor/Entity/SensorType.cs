@@ -1,8 +1,7 @@
-﻿namespace Home.Air.Base.Sensor.Entity
+﻿namespace Home.Air.Base.Sensor.Entity;
+
+public enum SensorType
 {
-    public enum SensorType
-    {
-        Temperature,
-        AirQuality
-    }
+    Temperature,
+    AirQuality
 }

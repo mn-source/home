@@ -1,8 +1,7 @@
-﻿namespace Home.Repository.MongoDb.Settings
+﻿namespace Home.Repository.MongoDb.Settings;
+
+public class MongoDbSettings
 {
-    public class MongoDbSettings
-    {
-        public string DataBasePrefix { get; set; }
-        public string ConnectionsString { get; set; }
-    }
+    public string DataBasePrefix { get; set; }
+    public string ConnectionsString { get; set; }
 }

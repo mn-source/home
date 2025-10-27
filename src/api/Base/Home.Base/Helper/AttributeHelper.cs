@@ -9,41 +9,40 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace Home.Base.Helper
+namespace Home.Base.Helper;
+
+public static class AttributeHelper
 {
-    public static class AttributeHelper
+    public static T GetLabelEnum<T>(string label) where T : Enum
     {
-        public static T GetLabelEnum<T>(string label) where T : Enum
+        var enums = Enum.GetValues(typeof(T)) as IEnumerable<T>;
+        var dictionary = new Dictionary<T, string>();
+        foreach (var enumValue in enums)
         {
-            var enums = Enum.GetValues(typeof(T)) as IEnumerable<T>;
-            var dictionary = new Dictionary<T, string>();
-            foreach (var enumValue in enums)
-            {
-                var type = typeof(T);
-                var memInfo = type.GetMember(enumValue.ToString());
-                var attributes = memInfo[0].GetCustomAttributes(typeof(LabelEnumAttribute), false);
-                var enumLabel = ((LabelEnumAttribute)attributes[0]).Label;
-                dictionary.Add(enumValue, enumLabel);
-            }
-            var returnValue = dictionary.SingleOrDefault(b => b.Value == label).Key;
-            if (returnValue == null)
-            {
-                throw new UnknownLabelValueException(label);
-
-            }
-            return returnValue;
+            var type = typeof(T);
+            var memInfo = type.GetMember(enumValue.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(LabelEnumAttribute), false);
+            var enumLabel = ((LabelEnumAttribute)attributes[0]).Label;
+            dictionary.Add(enumValue, enumLabel);
         }
-
-
-        public static Type GetEnumTypeLabelEnum<T>(T label) where T : Enum
+        var returnValue = dictionary.SingleOrDefault(b => b.Value == label).Key;
+        if (returnValue == null)
         {
-            var type = typeof(T).GetCustomAttributes(true).FirstOrDefault(b => b is DesiredTypeAttribute);
-            if (type is DesiredTypeAttribute attribute)
-            {
-                return attribute.TypeAttribute;
-            }
-            var msg = "object has not appropriate attribute";
-            throw new UnknownTypeValueException(string.Format(CultureInfo.CurrentCulture, msg), label.ToString());
+            throw new UnknownLabelValueException(label);
+
         }
+        return returnValue;
+    }
+
+
+    public static Type GetEnumTypeLabelEnum<T>(T label) where T : Enum
+    {
+        var type = typeof(T).GetCustomAttributes(true).FirstOrDefault(b => b is DesiredTypeAttribute);
+        if (type is DesiredTypeAttribute attribute)
+        {
+            return attribute.TypeAttribute;
+        }
+        var msg = "object has not appropriate attribute";
+        throw new UnknownTypeValueException(string.Format(CultureInfo.CurrentCulture, msg), label.ToString());
     }
 }

@@ -8,55 +8,54 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 
-namespace Home.Client.Api
+namespace Home.Client.Api;
+
+public class Startup(IConfiguration configuration)
 {
-    public class Startup(IConfiguration configuration)
+    private readonly string HomeOrigins = "_homeSpecificOrigins";
+
+    public IConfiguration Configuration { get; } = configuration;
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
     {
-        private readonly string HomeOrigins = "_homeSpecificOrigins";
-
-        public IConfiguration Configuration { get; } = configuration;
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        services.AddCors(options =>
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: HomeOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200");
-                                  });
-            });
-            services.AddControllers();
-            services.RegisterApplication<ObjectId>(Configuration);
-            services.RegisterMongoDbRepository(Configuration);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Home.Api", Version = "v1" });
-            });
+            options.AddPolicy(name: HomeOrigins,
+                              builder =>
+                              {
+                                  builder.WithOrigins("http://localhost:4200");
+                              });
+        });
+        services.AddControllers();
+        services.RegisterApplication<ObjectId>(Configuration);
+        services.RegisterMongoDbRepository(Configuration);
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Home.Api", Version = "v1" });
+        });
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Home.Api v1"));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        //app.UseHttpsRedirection();
+
+        app.UseCors(HomeOrigins);
+        app.UseRouting();
+
+        //app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Home.Api v1"));
-            }
-
-            //app.UseHttpsRedirection();
-
-            app.UseCors(HomeOrigins);
-            app.UseRouting();
-
-            //app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+            endpoints.MapControllers();
+        });
     }
 }

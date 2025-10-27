@@ -9,18 +9,17 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace Home.Repository.MongoDb.Context
+namespace Home.Repository.MongoDb.Context;
+
+internal class BaseMongoContext<T> where T : BaseEntity<ObjectId>
 {
-    internal class BaseMongoContext<T> where T : BaseEntity<ObjectId>
+    public IMongoCollection<T> MongoCollection { get; private set; }
+    public BaseMongoContext(IOptions<MongoDbSettings> options)
     {
-        public IMongoCollection<T> MongoCollection { get; private set; }
-        public BaseMongoContext(IOptions<MongoDbSettings> options)
-        {
-            var settings = options.Value;
-            var client = MongoSorgoClient.GetClient(settings);
-            var domain = DomainHelper.GetDomainName(typeof(T));
-            var database = client.GetDatabase($"{settings.DataBasePrefix}{domain}");
-            MongoCollection = database.GetCollection<T>(DomainHelper.GetTypeName(typeof(T)));
-        }
+        var settings = options.Value;
+        var client = MongoSorgoClient.GetClient(settings);
+        var domain = DomainHelper.GetDomainName(typeof(T));
+        var database = client.GetDatabase($"{settings.DataBasePrefix}{domain}");
+        MongoCollection = database.GetCollection<T>(DomainHelper.GetTypeName(typeof(T)));
     }
 }

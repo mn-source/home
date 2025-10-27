@@ -5,68 +5,66 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Home.Air.Monitor.Monitor
+namespace Home.Air.Monitor.Monitor;
+
+public class MonitorService<TKey>(
+    ISensorService<TKey> sensorService,
+    IProbeMonitorService<TKey> probeMonitorService,
+    ILogger<MonitorService<TKey>> logger) : IDisposable
 {
-    public class MonitorService<TKey>(
-        ISensorService<TKey> sensorService,
-        IProbeMonitorService<TKey> probeMonitorService,
-        ILogger<MonitorService<TKey>> logger) : IDisposable
+    private List<MonitorProcessService<TKey>> timers;
+    private bool disposedValue;
+    private readonly ISensorService<TKey> sensorService = sensorService;
+    private readonly IProbeMonitorService<TKey> probeMonitorService = probeMonitorService;
+    private readonly ILogger<MonitorService<TKey>> logger = logger;
+
+    public async Task StartAsync()
     {
-        private List<MonitorProcessService<TKey>> timers;
-        private bool disposedValue;
-        private readonly ISensorService<TKey> sensorService = sensorService;
-        private readonly IProbeMonitorService<TKey> probeMonitorService = probeMonitorService;
-        private readonly ILogger<MonitorService<TKey>> logger = logger;
+        logger.LogDebug("StartAsync");
+        timers = new List<MonitorProcessService<TKey>>();
+        var sensors = await sensorService.GetActiveSensorsAsync();
 
-        public async Task StartAsync()
+        foreach (var sensor in sensors)
         {
-            logger.LogDebug("StartAsync");
-            timers = new List<MonitorProcessService<TKey>>();
-            var sensors = await sensorService.GetActiveSensorsAsync();
-
-            foreach (var sensor in sensors)
-            {
-                var timer = new MonitorProcessService<TKey>(sensor, probeMonitorService);
-                timer.Start();
-                timers.Add(timer);
-            }
-        }
-
-        public async Task StopAsync()
-        {
-            logger.LogDebug("StopAsync");
-            await Task.Run(StopTimers);
-        }
-
-        private void StopTimers()
-        {
-            foreach (var sensor in timers)
-            {
-                sensor.Stop();
-            }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    foreach (var timer in timers)
-                    {
-                        timer.Dispose();
-                    }
-                }
-                disposedValue = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            var timer = new MonitorProcessService<TKey>(sensor, probeMonitorService);
+            timer.Start();
+            timers.Add(timer);
         }
     }
 
+    public async Task StopAsync()
+    {
+        logger.LogDebug("StopAsync");
+        await Task.Run(StopTimers);
+    }
+
+    private void StopTimers()
+    {
+        foreach (var sensor in timers)
+        {
+            sensor.Stop();
+        }
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                foreach (var timer in timers)
+                {
+                    timer.Dispose();
+                }
+            }
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
 }

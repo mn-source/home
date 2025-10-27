@@ -1,8 +1,7 @@
-﻿namespace Home.Air.Base.Sensor.Entity
+﻿namespace Home.Air.Base.Sensor.Entity;
+
+public enum SensorClient
 {
-    public enum SensorClient
-    {
-        Supla,
-        Blebox
-    }
+    Supla,
+    Blebox
 }

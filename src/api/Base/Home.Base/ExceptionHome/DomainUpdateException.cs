@@ -4,20 +4,19 @@
 // Written by Mariusz Nowak <dev@sorgo.net>, 2019
 using System;
 
-namespace Home.Base.ExceptionHome
+namespace Home.Base.ExceptionHome;
+
+public class DomainUpdateException : Exception
 {
-    public class DomainUpdateException : Exception
+    public DomainUpdateException()
     {
-        public DomainUpdateException()
-        {
-        }
+    }
 
-        public DomainUpdateException(string message) : base(message)
-        {
-        }
+    public DomainUpdateException(string message) : base(message)
+    {
+    }
 
-        public DomainUpdateException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public DomainUpdateException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

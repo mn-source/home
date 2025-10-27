@@ -7,31 +7,30 @@ using System.IO;
 using Home.Repository.MongoDb.Extension;
 using System.Threading.Tasks;
 
-namespace Home.Client.MonitorHost
+namespace Home.Client.MonitorHost;
+
+class Program
 {
-    class Program
+    static async Task Main(string[] args)
     {
-        static async Task Main(string[] args)
-        {
-            using IHost host = CreateHostBuilder(args).Build();
-            await host.RunAsync();
-        }
-
-        static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureHostConfiguration(configHost =>
-                {
-                    configHost.SetBasePath(Directory.GetCurrentDirectory());
-                    configHost.AddJsonFile("appsettings.json", optional: false);
-                    configHost.AddEnvironmentVariables(prefix: "PREFIX_");
-                    configHost.AddCommandLine(args);
-                }).ConfigureServices((host, services) =>
-                {
-                    MonitorServiceHelper.AddServices<ObjectId>(services);
-                    services.RegisterMongoDbRepository(host.Configuration);
-                    services.AddLogging(configure => configure.AddConsole())
-                    .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
-                });
-
+        using IHost host = CreateHostBuilder(args).Build();
+        await host.RunAsync();
     }
+
+    static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureHostConfiguration(configHost =>
+            {
+                configHost.SetBasePath(Directory.GetCurrentDirectory());
+                configHost.AddJsonFile("appsettings.json", optional: false);
+                configHost.AddEnvironmentVariables(prefix: "PREFIX_");
+                configHost.AddCommandLine(args);
+            }).ConfigureServices((host, services) =>
+            {
+                MonitorServiceHelper.AddServices<ObjectId>(services);
+                services.RegisterMongoDbRepository(host.Configuration);
+                services.AddLogging(configure => configure.AddConsole())
+                .Configure<LoggerFilterOptions>(options => options.MinLevel = LogLevel.Information);
+            });
+
 }

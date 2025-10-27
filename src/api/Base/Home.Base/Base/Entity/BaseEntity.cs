@@ -5,12 +5,11 @@
 
 using System.Text.Json.Serialization;
 
-namespace Home.Base.Base.Entity
+namespace Home.Base.Base.Entity;
+
+public abstract class BaseEntity<TKey>
 {
-    public abstract class BaseEntity<TKey>
-    {
-        [JsonIgnore]
-        public TKey Id { get; set; }
-        public string IdString { get; set; }
-    }
+    [JsonIgnore]
+    public TKey Id { get; set; }
+    public string IdString { get; set; }
 }
